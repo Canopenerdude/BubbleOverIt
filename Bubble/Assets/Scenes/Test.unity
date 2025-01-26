@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPaused: 0
+  whatDo: {fileID: 1894120712}
 --- !u!4 &439571332
 Transform:
   m_ObjectHideFlags: 0

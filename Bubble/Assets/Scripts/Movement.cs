@@ -19,18 +19,18 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") > 0)
         {
-            _rb.AddForce(Vector3.right * speed);
+            _rb.AddForce(Vector3.right * (speed * Time.timeScale));
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            _rb.AddForce(Vector3.left * speed);
+            _rb.AddForce(Vector3.left * (speed * Time.timeScale));
         }
 
-        if (grounded == true)
+        if (grounded)
         {
             if (Input.GetAxis("Vertical") > 0)
             {
-                _rb.AddForce(Vector2.up * (speed * 10));
+                _rb.AddForce(Vector2.up * (speed * 10 * Time.timeScale));
             }
         }
     }
