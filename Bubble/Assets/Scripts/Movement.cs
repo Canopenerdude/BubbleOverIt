@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
     public float speed = 5f;
     private Rigidbody2D _rb;
+    public bool grounded;
     
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,22 @@ public class Movement : MonoBehaviour
             _rb.AddForce(Vector3.left * speed);
         }
 
-        if (Input.GetAxis("Vertical") > 0)
+        if (grounded == true)
         {
-            _rb.AddForce(Vector3.up * speed);
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                _rb.AddForce(Vector2.up * (speed * 10));
+            }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        grounded = true;
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        grounded = false;
     }
 }
