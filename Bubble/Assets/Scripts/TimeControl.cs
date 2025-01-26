@@ -6,7 +6,7 @@ using UnityEngine;
 public class TimeControl : MonoBehaviour
 {
     public bool isPaused;
-
+    // public string command;
     public GameObject whatDo;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,8 @@ public class TimeControl : MonoBehaviour
         {
             PauseUnpause();
         }
+
+        // command = GetText.command;
     }
 
     public void PauseUnpause()

@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
     public float speed = 5f;
     private Rigidbody2D _rb;
     public bool grounded;
+    public string command;
     
     // Start is called before the first frame update
     void Start()
@@ -17,21 +18,10 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        command = GetText.command;
+        if (command != null)
         {
-            _rb.AddForce(Vector3.right * (speed * Time.timeScale));
-        }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            _rb.AddForce(Vector3.left * (speed * Time.timeScale));
-        }
-
-        if (grounded)
-        {
-            if (Input.GetAxis("Vertical") > 0)
-            {
-                _rb.AddForce(Vector2.up * (speed * 10 * Time.timeScale));
-            }
+            MovementCommands();
         }
     }
 
@@ -43,5 +33,39 @@ public class Movement : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         grounded = false;
+    }
+
+    IEnumerator MovementCommands()
+    {
+        if (command is "right" or "Right")
+        {
+            Debug.Log(command);
+            _rb.AddForce(Vector2.right * (speed * Time.timeScale));
+            yield return new WaitForSeconds(1);
+            command = null;
+        }
+        else if (command is "left" or "Left")
+        {
+            Debug.Log(command);
+            _rb.AddForce(Vector2.left * (speed * Time.timeScale));
+            yield return new WaitForSeconds(1);
+            command = null;
+        }
+
+        if (grounded)
+        {
+            if (command is "jump" or "Jump")
+            {
+                Debug.Log(command);
+                _rb.AddForce(Vector2.up * (speed * 10 * Time.timeScale));
+                yield return new WaitForSeconds(1);
+                command = null;
+            }
+        }
+    }
+
+    public IEnumerator WaitingForMovement()
+    {
+        yield return new WaitForSeconds(1);
     }
 }
